@@ -34,7 +34,7 @@ export default function Dashboard() {
     <div className="dash">
       <header className="dash__head">
         <p className="dash__eyebrow">Dashboard</p>
-        <h1 className="dash__title">Welcome back</h1>
+        <h1 className="dash__title">Welcome back! Lets Lears!</h1>
         <p className="dash__lead">Pick up where you left off.</p>
       </header>
 
