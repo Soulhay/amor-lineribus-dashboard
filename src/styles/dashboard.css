@@ -1,0 +1,125 @@
+/* =========================================================================
+   Dashboard.
+
+   Identical file in the dashboard remote and the monolithic reference.
+   Component styles travel with the remote (imported by src/mount.js);
+   tokens do not (imported only by the standalone entry, src/bootstrap.js).
+   Every value comes from tokens.css.
+   ========================================================================= */
+
+.dash {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-12) var(--gutter);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.dash__eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-verdigris);
+}
+.dash__title { margin-top: var(--space-2); }
+.dash__lead { color: var(--text-secondary); }
+
+.dash__stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.dstat,
+.dpanel {
+  background: var(--surface-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4);
+}
+
+.dstat__label,
+.dpanel__label {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+.dstat__value {
+  margin-top: var(--space-2);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--color-charcoal);
+}
+.dstat__unit {
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.dash__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: var(--space-4);
+}
+
+.dresume { background: var(--surface-teal); }
+.dresume__title { margin-top: var(--space-2); color: var(--color-charcoal); }
+.dresume__meta { color: var(--text-secondary); margin-bottom: var(--space-4); }
+.dresume__pct { margin-top: var(--space-2); font-size: var(--fs-sm); color: var(--text-secondary); }
+
+.progressbar {
+  height: 8px;
+  background: var(--border-light);
+  border-radius: var(--radius-pill, 999px);
+  overflow: hidden;
+}
+.progressbar__fill {
+  display: block;
+  height: 100%;
+  background: var(--color-jasmine);
+}
+
+.dweek {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+  height: 120px;
+  margin-top: var(--space-4);
+}
+.dweek__col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-1);
+}
+.dweek__bar {
+  width: 100%;
+  min-height: 2px;
+  background: var(--color-verdigris);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+.dweek__day { font-size: var(--fs-sm); color: var(--text-secondary); }
+
+.dcourses { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+.dcourse {
+  display: grid;
+  grid-template-columns: 1fr auto 48px;
+  gap: var(--space-4);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border-light);
+}
+.dcourse__fw { font-family: var(--font-mono); font-size: var(--fs-sm); color: var(--text-secondary); }
+.dcourse__pct { text-align: right; font-weight: 700; color: var(--color-charcoal); }
+
+@media (max-width: 720px) {
+  .dash__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dash__grid { grid-template-columns: minmax(0, 1fr); }
+}

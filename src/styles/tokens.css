@@ -1,0 +1,204 @@
+/* =========================================================================
+   Amor Lineribus - design tokens  ·  v1.1
+   =========================================================================
+
+   Shared visual contract between the React shell and the Angular and Vue
+   remotes. Because the remotes build and deploy independently, nothing in
+   the build process forces them to look alike. These custom properties are
+   what does.
+
+   The shell defines them on :root. Module Federation composes every remote
+   into the same document, so the values cascade into the remotes at runtime
+   with no shared build step.
+
+   IMPORTANT - import placement
+   Each app keeps its own copy so it renders correctly when served standalone
+   during development. That copy must be imported ONLY from the app's
+   standalone entry point, never from the module exposed through Module
+   Federation. Both copies define :root at equal specificity, so a copy
+   loaded on the federated path would inject later and silently override the
+   shell's values.
+
+   RULE
+   No colour, size, radius, shadow or font may be written as a literal value
+   in a component stylesheet. If a value is missing here, add it here first.
+   ========================================================================= */
+
+:root {
+  /* ---------------------------------------------------------------------
+     Brand colours - each family has a role, not just a value
+     --------------------------------------------------------------------- */
+  --color-charcoal: #264653;   /* primary - shells, nav, dark bands       */
+  --color-verdigris: #2a9d8f;  /* interaction - CTAs, links, active state */
+  --color-jasmine: #e9c46a;    /* highlight - progress, completion        */
+  --color-sandy: #f4a261;      /* secondary - warm CTA                    */
+  --color-peach: #e76f51;      /* danger - destructive, urgency           */
+
+  /* Surfaces */
+  --surface-white: #ffffff;
+  --surface-warm: #f8f5f0;
+  --surface-teal: #eef4f3;
+
+  /* Tinted surfaces - light washes of the brand families, for status
+     backgrounds and category pills. Text-primary clears 11:1 on all three. */
+  --surface-jasmine: #fbf1d9;
+  --surface-sandy: #fdeee0;
+  --surface-peach: #fbe4dc;
+
+  /* Borders */
+  --border-light: #d4dde3;
+  --border-mid: #b4c4cb;
+
+  /* Text */
+  --text-primary: #1a313b;
+  --text-secondary: #4a6572;
+  --text-muted: #7a9aa7;       /* 3.0:1 - decorative text only, never body */
+
+  /* ---------------------------------------------------------------------
+     Text-on-colour pairings, fixed by contrast measurement (WCAG 2.1 AA)
+
+       white    on charcoal   10.08:1  AAA
+       white    on verdigris   3.32:1  AA for UI / large text only
+       white    on peach       3.09:1  AA for UI / large text only
+       charcoal on jasmine     6.03:1  AA
+       charcoal on sandy       4.89:1  AA
+
+     White on jasmine (1.67:1) and white on sandy (2.06:1) both fail.
+     Use these tokens rather than choosing a text colour by eye - the
+     pairing is then enforced by the system, not by remembering.
+     --------------------------------------------------------------------- */
+  --on-charcoal: var(--surface-white);
+  --on-verdigris: var(--surface-white);
+  --on-peach: var(--surface-white);
+  --on-jasmine: var(--color-charcoal);
+  --on-sandy: var(--color-charcoal);
+
+  /* ---------------------------------------------------------------------
+     Framework accents
+
+     Two sets. The brand colours are the official ones and are used only on
+     dark surfaces or as large fills. The on-light variants are darkened so
+     they meet AA as text on white and on the teal surface, because the
+     official React and Vue colours do not:
+
+       #61dafb on white  1.62:1  fails
+       #42b883 on white  2.50:1  fails
+
+     Measured values for the on-light set:
+       react   #0a7597  5.24:1 white / 4.71:1 teal   AA
+       angular #dd0031  5.10:1 white / 4.58:1 teal   AA
+       vue     #2a805a  4.85:1 white / 4.35:1 teal   AA on white
+     --------------------------------------------------------------------- */
+  --fw-react: #61dafb;
+  --fw-angular: #dd0031;
+  --fw-vue: #42b883;
+
+  --fw-react-on-light: #0a7597;
+  --fw-angular-on-light: #dd0031;
+  --fw-vue-on-light: #2a805a;
+
+  /* ---------------------------------------------------------------------
+     Code surfaces - syntax palette, all measured against --color-charcoal
+       text     7.54:1   string  5.71:1   punctuation 4.98:1
+       keyword  3.26:1   function 3.03:1  attribute   6.03:1
+     Keyword and function sit above the 3:1 UI threshold; they are used only
+     for short highlighted spans, never for running text.
+     --------------------------------------------------------------------- */
+  --code-bg: var(--color-charcoal);
+  --code-text: #cfe3e0;
+  --code-string: #9ecfa2;
+  --code-punc: #9cbdb8;
+  --code-keyword: var(--color-peach);
+  --code-function: var(--color-verdigris);
+  --code-attr: var(--color-jasmine);
+  --code-rule: rgba(255, 255, 255, 0.08);
+
+  /* Translucent overlay for controls sitting on imagery or gradients */
+  --overlay-light: rgba(255, 255, 255, 0.15);
+
+  /* ---------------------------------------------------------------------
+     Typography
+     --------------------------------------------------------------------- */
+  --font-display: 'Advent Pro', system-ui, sans-serif;
+  --font-body: 'Advent Pro', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* 1.25 modular scale */
+  --fs-4xl: 3.5rem;    /* 56px   - display heading */
+  --fs-3xl: 2.8rem;    /* 44.8px - section title   */
+  --fs-2xl: 2.25rem;   /* 36px   - h1              */
+  --fs-xl: 1.8rem;     /* 28.8px - h2              */
+  --fs-lg: 1.4375rem;  /* 23px   - h3, card title  */
+  --fs-md: 1.25rem;    /* 20px   - lead paragraph  */
+  --fs-base: 1rem;     /* 16px   - body            */
+  --fs-sm: 0.8rem;     /* 12.8px - labels, caption */
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+  --lh-tight: 1.15;
+  --lh-normal: 1.5;
+  --lh-loose: 1.7;
+
+  /* ---------------------------------------------------------------------
+     Spacing - 8px base grid
+     --------------------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ---------------------------------------------------------------------
+     Radius
+     --------------------------------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  /* ---------------------------------------------------------------------
+     Elevation
+     --------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(26, 49, 59, 0.06);
+  --shadow-md: 0 2px 8px rgba(26, 49, 59, 0.08);
+  --shadow-lg: 0 8px 24px rgba(26, 49, 59, 0.10);
+  --shadow-xl: 0 16px 48px rgba(26, 49, 59, 0.12);
+
+  /* ---------------------------------------------------------------------
+     Motion + layout
+     --------------------------------------------------------------------- */
+  --ease: 0.15s ease;
+  --ease-slow: 0.3s ease;
+
+/* Content cap. 1200px was sized for a 1440px display and leaves large
+     dead margins on wider screens; 1600px fills a 2560px display without
+     letting line lengths run past comfortable reading width, because the
+     text columns inside are separately capped in ch units. */
+  --max-width: 1600px;
+
+  /* Fluid page gutter — grows with the viewport instead of stepping. */
+  --gutter: clamp(var(--space-4), 4vw, var(--space-16));
+
+  --nav-height: 64px;
+}
+
+/* Respect users who ask for less motion. Referenced in the accessibility
+   section of the thesis - decorative animation is opt-out by default. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
